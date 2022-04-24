@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% block title %}Delete post{% endblock %}
+{% block content %}
+
+{% if user.is_authenticated %}
+    {% if user.id == critique.author.id %}
+<h1>Delete Post...</h1>
+<br><br>
+<h3>Delete: {{ critique.title }}</h3>
+
+
+<div class="form-group">
+    <form method="POST">
+        {% csrf_token %}
+        <br><br>
+        <strong> Are you sure you want to delete ?</strong>
+        <br><br>
+        <button class="btn btn-outline-secondary">Delete</button>
+    </form>
+</div>
+    {% else %}
+        You are not allowed here..!
+    {% endif %}
+{% else %}
+
+You are not allowed here..!
+
+{% endif %}
+<br><br>
+<small><a href="{% url 'home' %}" class="btn btn-secondary">Retour à la page d'accueil</a></small>
+{% endblock %}

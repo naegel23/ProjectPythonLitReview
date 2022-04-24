@@ -1,0 +1,74 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% if user.is_authenticated %}
+<h1> Posts :</h1>
+<br>
+    <ul>
+    {% for post in posts %}
+        <li><a href="{% url 'article-detail' post.pk %}">{{ post.title }}</a> - {{ post.author }}
+            - {{ post.post_date }} <small>
+                {% if user.is_authenticated %}
+                    {% if user.id == post.author.id %}
+                        - <a href="{% url 'update-post' post.pk %}">(Edit)</a>
+
+                        <a href="{% url 'delete-post' post.pk %}">(Delete)</a>
+                    {% endif %}
+                {% endif %}
+            </small>
+            <br/>
+            {{ post.body|slice:":200" }}</li>
+    {% endfor %}
+    {% for post in my_posts %}
+        <li><a href="{% url 'article-detail' post.pk %}">{{ post.title }}</a> - {{ post.author }}
+            - {{ post.post_date }} <small>
+                {% if user.is_authenticated %}
+                    {% if user.id == post.author.id %}
+                        - <a href="{% url 'update-post' post.pk %}">(Edit)</a>
+
+                        <a href="{% url 'delete-post' post.pk %}">(Delete)</a>
+                    {% endif %}
+                {% endif %}
+            </small>
+            <br/>
+            {{ post.body|slice:":200" }}</li>
+    {% endfor %}
+    </ul>
+    <br><br>
+    <hr>
+<h1> Critiques :</h1>
+<br>
+    <ul>
+    {% for critique in critiques %}
+        <li><a href="{% url 'critique-detail' critique.pk %}">{{ critique.title }}</a> - {{ critique.author }}
+            - {{ critique.post_date }} <small>
+                {% if user.is_authenticated %}
+                    {% if user.id == critique.author.id %}
+                        - <a href="{% url 'update-critique' critique.pk %}">(Edit)</a>
+
+                        <a href="{% url 'delete-critique' critique.pk %}">(Delete)</a>
+                    {% endif %}
+                {% endif %}
+            </small>
+            <br/>
+            {{ critique.body|slice:":200" }}</li>
+    {% endfor %}
+    {% for critique in my_critiques %}
+        <li><a href="{% url 'critique-detail' critique.pk %}">{{ critique.title }}</a> - {{ critique.author }}
+            - {{ critique.post_date }} <small>
+                {% if user.is_authenticated %}
+                    {% if user.id == critique.author.id %}
+                        - <a href="{% url 'update-critique' critique.pk %}">(Edit)</a>
+
+                        <a href="{% url 'delete-critique' critique.pk %}">(Delete)</a>
+                    {% endif %}
+                {% endif %}
+            </small>
+            <br/>
+            {{ critique.body|slice:":200" }}</li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <h2>You have to be connected to see the post .. <a href="{% url 'login' %}">click here to connect !</a></h2>
+{% endif %}
+{% endblock %}

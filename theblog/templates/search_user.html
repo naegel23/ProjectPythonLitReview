@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<center>
+
+{% if searched %}
+    <h1>You searched for :</h1>
+    <br>
+    {% for user in users %}
+        {% if request.user == user %}
+            <p>utilisateur introuvable</p>
+        {% else %}
+
+        <div class="ui segment">
+            {{ user }} <p> id = {{ user.id }}</p>
+
+            <p class="small text-muted">
+                <a href="{% url 'show-profile-page' user.id %}"><button class="ui primary button">Profile page</button></a>
+            </p>
+            <br>
+        </div>
+        {% endif %}
+    {% endfor %}
+
+{% else %}
+    <p>Nothing here ...</p>
+{% endif %}
+</center>
+
+
+
+
+
+{% endblock %}

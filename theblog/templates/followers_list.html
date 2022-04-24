@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+{% block title %}Edit post{% endblock %}
+{% block content %}
+
+{% if user.is_authenticated %}
+
+  <div class="block">
+        <h3 class="title is-4">
+            {{profile.user.username}} follows:
+        </h3>
+        <br>
+        <div class="content">
+            <ul>
+            {% for following in profile.following.all %}
+                <li>
+                    <a href="{% url 'show-profile-page' following.id %}"><button class="ui primary button">{{ following }}</button></a>
+                </li>
+                <br>
+            {% endfor %}
+            </ul>
+        </div>
+    </div>
+    <br><br>
+    <div class="block">
+        <h3 class="title is-4">
+            {{profile.user.username}} is followed by:
+        </h3>
+        <br>
+        <div class="content">
+            <ul>
+            {% for follower in profile.followed_by.all %}
+                <li>
+                    <a href="#">
+                        {{ follower }}<br>
+                    </a>
+                </li>
+
+            {% endfor %}
+            </ul>
+        </div>
+    </div>
+    <div class="ui segment">
+                {{ following }}
+                <br>
+            </div>
+
+{% else %}
+
+You are not allowed here ..!
+
+{% endif %}
+<br><br>
+<small><a href="{% url 'home' %}" class="btn btn-secondary">Retour à la page d'accueil</a></small>
+{% endblock %}

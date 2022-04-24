@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% block title %}{{ critique.title_tag }}{% endblock %}
+
+
+
+{% block content %}
+<h1>{{ critique.title }}</h1>
+
+<small>By:  {{ critique.author.first_name }}
+            {{ critique.author.last_name }} -
+            {{ critique.post_date }}
+    {% if user.is_authenticated %}
+        {% if user.id == critique.author.id %}
+            <a href="{% url 'update-critique' post.pk %}">(Edit)</a>
+
+            <a href="{% url 'delete-critique' post.pk %}">(Delete)</a>
+        {% endif %}
+    {% endif %}
+</small><br>
+<hr>
+<br>
+{% if critique.header_image %}
+    <img src="{{ critique.header_image.url }}">
+{% endif %}
+
+<br><br>
+{{ critique.body }}
+<br>
+<hr>
+<h2>Critique :</h2>
+
+{{ critique.title.second }}
+<br>
+{{ critique.comment }}
+<br><br><br>
+<small><a href="{% url 'home' %}" class="btn btn-secondary">Retour à la page d'accueil</a></small>
+
+{% endblock %}
