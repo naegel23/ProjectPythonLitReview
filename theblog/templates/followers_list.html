@@ -3,21 +3,33 @@
 {% block content %}
 
 {% if user.is_authenticated %}
+<div style="width: 50vw;" class="container-fluid">{% if user.is_authenticated %}
+      <form class="d-flex" method=POST action="{% url 'search-user' %}">
+        {% csrf_token %}
 
+        <input class="form-control me-2" type="search" placeholder="Search User" aria-label="Search" name="searched">
+        <button class="btn btn-outline-secondary" type="submit">Search</button>
+      </form>
+{% endif %}
+    <br>
+    <br>
   <div class="block">
         <h3 class="title is-4">
             {{profile.user.username}} follows:
         </h3>
         <br>
         <div class="content">
-            <ul>
-            {% for following in profile.following.all %}
-                <li>
-                    <a href="{% url 'show-profile-page' following.id %}"><button class="ui primary button">{{ following }}</button></a>
-                </li>
-                <br>
-            {% endfor %}
-            </ul>
+
+            <div class="container-fluid">
+                <div class="row justify-content-start">
+                    {% for following in followings %}
+                        <div class="col-2">
+                            <a class="btn btn-outline-primary btn-lg" href="{% url 'show-profile-page' following.id %}">{{ following }}</a>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+
         </div>
     </div>
     <br><br>
@@ -27,28 +39,30 @@
         </h3>
         <br>
         <div class="content">
-            <ul>
-            {% for follower in profile.followed_by.all %}
-                <li>
-                    <a href="#">
-                        {{ follower }}<br>
-                    </a>
-                </li>
 
-            {% endfor %}
-            </ul>
+            <div class="container-fluid">
+                <div class="row justify-content-start">
+                    {% for follower in followers %}
+                        <div class="col-2">
+                            <a class="btn btn-outline-primary btn-lg" href="{% url 'show-profile-page' follower.id %}">{{ follower }}</a>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+
         </div>
     </div>
     <div class="ui segment">
                 {{ following }}
                 <br>
-            </div>
-
+    </div>
+    <a href="{% url 'home' %}" class="btn btn-secondary mt-5">Retour à la page d'accueil</a>
+</div>
 {% else %}
 
 You are not allowed here ..!
 
 {% endif %}
 <br><br>
-<small><a href="{% url 'home' %}" class="btn btn-secondary">Retour à la page d'accueil</a></small>
+
 {% endblock %}

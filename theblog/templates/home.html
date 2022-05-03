@@ -1,74 +1,227 @@
 {% extends 'base.html' %}
 
 {% block content %}
+<div class="container-fluid home">
+    <div class="row justify-content-around mb-5">
+        <div class="col-4">
+            <a href="{% url 'add-post' %}" class="btn btn-outline-primary btn-home">
+                Demander une critique
+            </a>
+        </div>
+        <div class="col-4">
+            <a href="{% url 'add-critique' %}" class="btn btn-outline-primary btn-home">
+                Créer une critique
+            </a>
+        </div>
+    </div>
+    <h1> Tickets :</h1>
+    <!-- Début de la card -->
 {% if user.is_authenticated %}
-<h1> Posts :</h1>
-<br>
-    <ul>
+    <!-- Début des posts -->
     {% for post in posts %}
-        <li><a href="{% url 'article-detail' post.pk %}">{{ post.title }}</a> - {{ post.author }}
-            - {{ post.post_date }} <small>
-                {% if user.is_authenticated %}
+    <div class="card text-dark bg-light mb-3" style="max-width: 90%; margin: auto;">
+        <div class="card-header">
+            <div class="container">
+                <div class="row">
+                    <div class="col">
+                        <h4 style="text-transform: uppercase;">{{ post.title }}</h4>
+                        <p>Publié par : {{ post.author.user.first_name }} {{ post.author.user.last_name }}</p>
+                    </div>
+                    <div class="col">
+                        <div class="d-flex justify-content-end">
+                            <p>{{ post.post_date }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card-body">
+          <h5 class="card-title">{{ post.body|slice:":200" }}</h5>
+        {% if post.header_image %}
+            <img src="{{ post.header_image.url }}" width="200" height="200">
+        {% endif %} 
+        <div class="container">
+            <div class="row">
+                <div class="d-flex justify-content-end">
+                    <a href="{% url 'article-detail' post.pk %}" style="margin-right: 20px;" class="btn btn-outline-dark">Voir la critique</a>
+                    {% if user.is_authenticated %}
                     {% if user.id == post.author.id %}
-                        - <a href="{% url 'update-post' post.pk %}">(Edit)</a>
 
-                        <a href="{% url 'delete-post' post.pk %}">(Delete)</a>
+                    <a style="margin-right: 20px;" class="btn btn-outline-warning" href="{% url 'update-post' post.pk %} ">Editer</a>
+                    <a class="btn btn-outline-danger" href="{% url 'delete-post' post.pk %}">Supprimer</a>
                     {% endif %}
                 {% endif %}
-            </small>
-            <br/>
-            {{ post.body|slice:":200" }}</li>
-    {% endfor %}
-    {% for post in my_posts %}
-        <li><a href="{% url 'article-detail' post.pk %}">{{ post.title }}</a> - {{ post.author }}
-            - {{ post.post_date }} <small>
-                {% if user.is_authenticated %}
-                    {% if user.id == post.author.id %}
-                        - <a href="{% url 'update-post' post.pk %}">(Edit)</a>
+                </div> 
 
-                        <a href="{% url 'delete-post' post.pk %}">(Delete)</a>
+            </div>
+        </div>
+        </div>
+      </div>
+      <!-- Fin de la card -->
+        {% endfor %}
+        <!-- Fin des posts -->
+        <!-- MES POSTS -->
+        {% for post in my_posts %}
+                <!-- DEBUT DE LA CARD -->
+                <div class="card border-dark mb-3" style="max-width: 90%; margin: auto;">
+                    <div class="card-header">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col">
+                                    <h4 style="text-transform: uppercase;">{{ post.title }}</h4>
+                                    <p>Vous avez publié une critique</p>
+                                </div>
+                                <div class="col">
+                                    <div class="d-flex justify-content-end">
+                                        <p>{{ post.post_date }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                      <h5 class="card-title">{{ post.body|slice:":200" }}</h5>
+                    {% if post.header_image %}
+                        <img src="{{ post.header_image.url }}" width="200" height="200">
                     {% endif %}
-                {% endif %}
-            </small>
-            <br/>
-            {{ post.body|slice:":200" }}</li>
-    {% endfor %}
-    </ul>
-    <br><br>
-    <hr>
-<h1> Critiques :</h1>
-<br>
-    <ul>
+                    <div class="container">
+                        <div class="row">
+                            <div class="d-flex justify-content-end">
+                                <a href="{% url 'article-detail' post.pk %}" style="margin-right: 20px;" class="btn btn-outline-dark">Voir la critique</a>
+                                {% if user.is_authenticated %}
+                                {% if user.id == post.author.id %}
+
+                                <a style="margin-right: 20px;" class="btn btn-outline-warning" href="{% url 'update-post' post.pk %} ">Editer</a>
+                                <a class="btn btn-outline-danger" href="{% url 'delete-post' post.pk %}">Supprimer</a>
+                                {% endif %}
+                            {% endif %}
+                            </div>
+
+                        </div>
+                    </div>
+                    </div>
+                  </div>
+                  <!-- FIN DE LA CARD -->
+        {% endfor %}
+        <!-- Fin de mes posts -->
+        <hr>
+        <!-- LES CRITIQUES -->
+    <h1> Critiques :</h1>
+    <!-- DEBUT DE LA CARD -->
     {% for critique in critiques %}
-        <li><a href="{% url 'critique-detail' critique.pk %}">{{ critique.title }}</a> - {{ critique.author }}
-            - {{ critique.post_date }} <small>
-                {% if user.is_authenticated %}
-                    {% if user.id == critique.author.id %}
-                        - <a href="{% url 'update-critique' critique.pk %}">(Edit)</a>
+    <div class="card text-dark bg-light mb-3" style="max-width: 90%; margin: auto;">
+        <div class="card-header">
+            <div class="container">
+                <div class="row">
+                    <div class="col">
+                        <h4 style="text-transform: uppercase;">{{ critique.title }}</h4>
+                        <p>Publié par : {{ critique.author.user.first_name }} {{ critique.author.user.last_name }}</p>
+                    </div>
+                    <div class="col">
+                        <div class="d-flex justify-content-end">
+                            <p>{{ critique.post_date }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card-body">
+          <h5 class="card-title">{{ critique.body|slice:":200" }} - 
+                      {% if critique.rating == 0 %}
+           '&#9734;&#9734;&#9734;&#9734;&#9734;'
+        {% elif critique.rating == 1 %}
+            '&#9733;&#9734;&#9734;&#9734;&#9734;'
+        {% elif critique.rating == 2 %}
+            '&#9733;&#9733;&#9734;&#9734;&#9734;'
+        {% elif critique.rating == 3 %}
+            '&#9733;&#9733;&#9733;&#9734;&#9734;'
+        {% elif critique.rating == 4 %}
+            '&#9733;&#9733;&#9733;&#9733;&#9734;'
+        {% elif critique.rating == 5 %}
+            '&#9733;&#9733;&#9733;&#9733;&#9733;'
+        {% endif %}
+          </h5>
+        {% if critique.header_image %}
+            <img src="{{ critique.header_image.url }}" width="300" height="300">
+        {% endif %}
+        <h5>{{ critique.title.second }}</h5>
+        <div class="container">
+            <div class="row">
+                <div class="d-flex justify-content-end">
+                    <a href="{% url 'critique-detail' critique.pk %}" style="margin-right: 20px;" class="btn btn-outline-dark">Voir la critique</a>
+                    {% if user.is_authenticated %}
+                    {% if user.id == post.author.id %}
 
-                        <a href="{% url 'delete-critique' critique.pk %}">(Delete)</a>
+                    <a style="margin-right: 20px;" class="btn btn-outline-warning" href="{% url 'update-post' post.pk %} ">Editer</a>
+                    <a class="btn btn-outline-danger" href="{% url 'delete-post' post.pk %}">Supprimer</a>
                     {% endif %}
                 {% endif %}
-            </small>
-            <br/>
-            {{ critique.body|slice:":200" }}</li>
-    {% endfor %}
-    {% for critique in my_critiques %}
-        <li><a href="{% url 'critique-detail' critique.pk %}">{{ critique.title }}</a> - {{ critique.author }}
-            - {{ critique.post_date }} <small>
-                {% if user.is_authenticated %}
-                    {% if user.id == critique.author.id %}
-                        - <a href="{% url 'update-critique' critique.pk %}">(Edit)</a>
+                </div> 
+            </div>
+        </div>
+        </div>
+      </div>
+      <!-- FIN DE LA CARD -->
+        {% endfor %}
+        <!-- FIN DES CRITIQUES -->
+        <!-- MES CRITIQUES -->
+        {% for critique in my_critiques %}
+        <!-- Début de la boucle my critique -->
+        <div class="card border-secondary mb-3" style="max-width: 90%; margin: auto;">
+            <div class="card-header">
+                <div class="container">
+                    <div class="row">
+                        <div class="col">
+                            <h4 style="text-transform: uppercase;">{{ critique.title }}</h4>
+                            <p>Publié par : {{ critique.author.user.first_name }} {{ critique.author.user.last_name }}</p>
+                        </div>
+                        <div class="col">
+                            <div class="d-flex justify-content-end">
+                                <p>{{ critique.post_date }}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+              <h5 class="card-title">{{ critique.body|slice:":200" }} -
+                          {% if critique.rating == 0 %}
+               '&#9734;&#9734;&#9734;&#9734;&#9734;'
+            {% elif critique.rating == 1 %}
+                '&#9733;&#9734;&#9734;&#9734;&#9734;'
+            {% elif critique.rating == 2 %}
+                '&#9733;&#9733;&#9734;&#9734;&#9734;'
+            {% elif critique.rating == 3 %}
+                '&#9733;&#9733;&#9733;&#9734;&#9734;'
+            {% elif critique.rating == 4 %}
+                '&#9733;&#9733;&#9733;&#9733;&#9734;'
+            {% elif critique.rating == 5 %}
+                '&#9733;&#9733;&#9733;&#9733;&#9733;'
+            {% endif %}
+              </h5>
+            {% if critique.header_image %}
+                <img src="{{ critique.header_image.url }}" width="300" height="300">
+            {% endif %}
+            <h5>{{ critique.title.second }}</h5>
+            <div class="container">
+                <div class="row">
+                    <div class="d-flex justify-content-end">
+                        <a href="{% url 'critique-detail' critique.pk %}" style="margin-right: 20px;" class="btn btn-outline-dark">Voir la critique</a>
+                        {% if user.is_authenticated %}
+                        {% if user.id == critique.author.id %}
 
-                        <a href="{% url 'delete-critique' critique.pk %}">(Delete)</a>
+                        <a style="margin-right: 20px;" class="btn btn-outline-warning" href="{% url 'update-critique' critique.pk %} ">Editer</a>
+                        <a class="btn btn-outline-danger" href="{% url 'delete-critique' critique.pk %}">Supprimer</a>
+                        {% endif %}
                     {% endif %}
-                {% endif %}
-            </small>
-            <br/>
-            {{ critique.body|slice:":200" }}</li>
-    {% endfor %}
-    </ul>
+                    </div>
+                </div>
+            </div>
+          </div>
+        {% endfor %}
+        <!-- FIN DE MES CRITIQUES -->
 {% else %}
-    <h2>You have to be connected to see the post .. <a href="{% url 'login' %}">click here to connect !</a></h2>
+<h2>You have to be connected to see the post .. <a href="{% url 'login' %}">click here to connect !</a></h2>
 {% endif %}
+</div>
 {% endblock %}

@@ -1,19 +1,31 @@
-{% extends 'base.html' %}
-{% block title %}Login{% endblock %}
-{% block content %}
+{% extends 'base.html' %} 
+{% block title %}Login{% endblock %} 
+{% block content%}
 
-
-<h1>Login</h1>
-<br><br>
-
-<div class="form-group">
-    <form method="POST">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button class="btn btn-outline-secondary">Login</button>
-    </form>
+<div class="container-fluid mt-5">
+  <div class="row align-items-center justify-content-between">
+    <div class="col-5">
+      <h2 class="mb-5" style="text-align: center">Incrivez-vous maintenant !</h2>
+      <div class="d-flex align-items-end">
+        <a href="{% url 'register' %}" class=" mx-auto">
+        <button id="btn-signup" class="btn btn-outline-primary">S'inscrire</button>
+        </a>
+      </div>
+    </div>
+    <div class="col-5">
+      <h2 class="mb-5" style="text-align: center">Connectez-vous</h2>
+      <div class="d-flex align-items-center" style="width: 10vw; margin: auto;">
+        <form method="POST">
+          {% csrf_token %} 
+          {{ form.as_p }}
+          <div class="d-flex flex-row-reverse bd-highlight">
+            <button id="btn-login" class="btn btn-outline-warning">
+              Se connecter
+            </button>   
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
 </div>
-
-<br><br>
-<small><a href="{% url 'home' %}" class="btn btn-secondary">Retour à la page d'accueil</a></small>
 {% endblock %}

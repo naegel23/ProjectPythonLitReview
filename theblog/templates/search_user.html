@@ -2,30 +2,36 @@
 
 {% block content %}
 
-<center>
-
-{% if searched %}
-    <h1>You searched for :</h1>
-    <br>
-    {% for user in users %}
-        {% if request.user == user %}
-            <p>utilisateur introuvable</p>
-        {% else %}
-
-        <div class="ui segment">
-            {{ user }} <p> id = {{ user.id }}</p>
-
-            <p class="small text-muted">
-                <a href="{% url 'show-profile-page' user.id %}"><button class="ui primary button">Profile page</button></a>
-            </p>
+<center class="container">
+    <div class="row justify-content-center">
+        {% if searched %}
+            <h1>You searched for :</h1>
             <br>
-        </div>
-        {% endif %}
-    {% endfor %}
+            {% for user in users %}
+                {% if request.user == user %}
+                    <p style="color: red; font-size: 30px; text-transform: uppercase;">utilisateur introuvable</p>
+                {% else %}
+        
+                <div class="ui segment">
+                    <p style="font-size: 30px; font-weight: bold;">
+                        {{ user }} 
+                    </p>
 
-{% else %}
-    <p>Nothing here ...</p>
-{% endif %}
+                    <p class="small text-muted">
+                        <a class="btn btn-success" href="{% url 'show-profile-page' user.id %}">Profile page</a>
+                    </p>
+                    <br>
+                </div>
+                {% endif %}
+            {% endfor %}
+        
+        {% else %}
+            <p>Nothing here ...</p>
+        {% endif %}
+    </div>
+
+    <a href="{% url 'following-list' %}" class="btn btn-secondary mt-5">Retour à la page abonnemennt</a>
+
 </center>
 
 

@@ -29,13 +29,12 @@
 {{ post.body }}
 <br><br>
 <hr>
-<h2>Comments..</h2>
-<br>
+<h4>Reponse à la demande de critique..</h4>
+
 {% if not post.comments.all %}
-    No comments Yet...<a href="{% url 'add-comment' post.pk %}">
-    Add one</a>
+    Aucune réponse n'a encore été donnée, souhaitez-vous y répondre...<a href="{% url 'add-comment' post.pk %}">
+    cliquer-ici</a>
 {% else %}
-    <a href="{% url 'add-comment' post.pk %}">Add comment</a>
     <br><br>
     {% for comment in post.comments.all %}
         <strong>
@@ -76,8 +75,9 @@
     <div class="col-md-10">
       <div class="card-body">
         <h5 class="card-title">
-            {{ post.author.first_name }}
-            {{post.author.last_name }} -
+            {{ post.author.user.first_name }}
+            {{ post.author.user.last_name }}
+
         </h5>
         <p class="small text-muted">
             <a href="{% url 'show-profile-page' user.id %}">Profile page</a>

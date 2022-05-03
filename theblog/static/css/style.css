@@ -1,0 +1,30 @@
+#btn-signup{
+    width: 200px;
+}
+
+.submit-btn{
+    width: 200px;
+}
+
+.home{
+    width: 1000px;
+}
+
+.btn-home{
+    width: 300px;
+}
+
+.all{
+    width: 1000px;
+    margin: auto;
+}
+
+a{
+    text-decoration: none;
+    color: black;
+}
+
+a:hover{
+    color: blue;
+    text-decoration: underline;
+}

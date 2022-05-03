@@ -11,7 +11,12 @@
         {% csrf_token %}
         {{ form.media }}
         {{ form.as_p }}
-        <button class="btn btn-outline-secondary">Post</button>
+        <div class="container">
+            <div class="d-flex flex-row-reverse bd-highlight">
+                <button style="width: 200px;" class="btn btn-outline-primary">Envoyer</button>
+                <a style="margin-right: 20px;" href="{% url 'home' %}" class="btn btn-secondary">Retour à la page d'accueil</a>
+            </div>
+        </div>
     </form>
 </div>
 
@@ -25,6 +30,4 @@
 You are not allowed here..!
 
 {% endif %}
-<br><br>
-<small><a href="{% url 'home' %}" class="btn btn-secondary">Retour à la page d'accueil</a></small>
 {% endblock %}

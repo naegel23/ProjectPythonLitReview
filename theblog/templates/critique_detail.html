@@ -6,14 +6,14 @@
 {% block content %}
 <h1>{{ critique.title }}</h1>
 
-<small>By:  {{ critique.author.first_name }}
-            {{ critique.author.last_name }} -
+<small>By:  {{ critique.author.user.first_name }}
+            {{ critique.author.user.last_name }} -
             {{ critique.post_date }}
     {% if user.is_authenticated %}
         {% if user.id == critique.author.id %}
-            <a href="{% url 'update-critique' post.pk %}">(Edit)</a>
+            <a href="{% url 'update-critique' critique.pk %}">(Edit)</a>
 
-            <a href="{% url 'delete-critique' post.pk %}">(Delete)</a>
+            <a href="{% url 'delete-critique' critique.pk %}">(Delete)</a>
         {% endif %}
     {% endif %}
 </small><br>
@@ -30,6 +30,21 @@
 <h2>Critique :</h2>
 
 {{ critique.title.second }}
+<br>
+Note :
+{% if critique.rating == 0 %}
+           '&#9734;&#9734;&#9734;&#9734;&#9734;'
+        {% elif critique.rating == 1 %}
+            '&#9733;&#9734;&#9734;&#9734;&#9734;'
+        {% elif critique.rating == 2 %}
+            '&#9733;&#9733;&#9734;&#9734;&#9734;'
+        {% elif critique.rating == 3 %}
+            '&#9733;&#9733;&#9733;&#9734;&#9734;'
+        {% elif critique.rating == 4 %}
+            '&#9733;&#9733;&#9733;&#9733;&#9734;'
+        {% elif critique.rating == 5 %}
+            '&#9733;&#9733;&#9733;&#9733;&#9733;'
+        {% endif %}
 <br>
 {{ critique.comment }}
 <br><br><br>

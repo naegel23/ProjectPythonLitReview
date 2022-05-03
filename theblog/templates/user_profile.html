@@ -3,12 +3,12 @@
 {% block content %}
 
 
-<h1>User Profile...</h1>
+<h1 class="mb-5">User Profile...</h1>
 
 {% if request.profile == user %}
     <p>Not allowed to be here..</p>
 {% else %}
-    <div class="card mb-3">
+    <div class="card mb-5">
       <div class="row g-0">
         <div class="col-md-2">
         {% if profile.profile_pic %}
@@ -28,15 +28,15 @@
                         {% csrf_token %}
                         <div class="buttons has-addons">
                         {% if profile in profile.following.all %}
-                            <button class="button is-success is-static">Follow</button>
-                            <button class="button is-danger" name="follow" value="unfollow">
+                            <button class="btn btn-outline-primary">Follow</button>
+                            <button class="btn btn-outline-danger" name="follow" value="unfollow">
                                 Unfollow
                             </button>
                         {% else %}
-                            <button class="button is-success" name="follow" value="follow">
+                            <button class="btn btn-outline-success" name="follow" value="follow">
                                 Follow
                             </button>
-                            <button class="button is-danger is-static">Unfollow</button>
+                            <button class="btn btn-outline-danger">Unfollow</button>
                         {% endif %}
                         </div>
                     </form>

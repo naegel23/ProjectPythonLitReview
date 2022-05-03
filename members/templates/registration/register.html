@@ -3,17 +3,23 @@
 {% block content %}
 
 
-<h1>Register</h1>
+<h1 style="text-align: center;">Inscrivez-vous</h1>
 <br><br>
 
 <div class="form-group">
     <form method="POST">
         {% csrf_token %}
         {{ form.as_p }}
-        <button class="btn btn-outline-secondary">Register</button>
+        <div class="container">
+            <div class="row">
+                <div class="d-flex justify-content-end">
+                        <a href="{% url 'login' %}" class="btn btn-secondary" style="margin-right: 20px;">Retourner</a>
+                        <button id="btn-signup" class="btn btn-outline-primary">S'inscrire</button>
+                  </div>
+            </div>
+        </div>
+        
+        
     </form>
 </div>
-
-<br><br>
-<small><a href="{% url 'home' %}" class="btn btn-secondary">Retour à la page d'accueil</a></small>
 {% endblock %}

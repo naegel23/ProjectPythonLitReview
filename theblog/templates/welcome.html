@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<center>
+        <h1>Welcome in LitReview</h1>
+    <br> <br>
+    {% if user.is_authenticated %}
+        <p>you are already connected <a href="{% url 'home' %}">click here</a></p>
+    {% else %}
+        <p>you want to loggin ? <a href="{% url 'login' %}">loggin here</a></p>
+        
+    {% endif %}
+
+</center>
+
+{% endblock content %}

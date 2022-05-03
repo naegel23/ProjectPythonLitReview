@@ -2,7 +2,7 @@ from django.views import generic
 # from django.shortcuts import get_object_or_404
 from django.urls import reverse_lazy
 # from django.views.generic import DetailView
-from .forms import SignupForm, EditProfileForm
+from .forms import SignupForm
 
 
 # Create your views here.
@@ -28,10 +28,3 @@ class UserRegisterView(generic.CreateView):
     success_url = reverse_lazy('login')
 
 
-class UserEditView(generic.UpdateView):
-    form_class = EditProfileForm
-    template_name = 'registration/edit_profile.html'
-    success_url = reverse_lazy('home')
-
-    def get_object(self):
-        return self.request.user

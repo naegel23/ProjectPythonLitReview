@@ -52,16 +52,26 @@ class CommentForm(forms.ModelForm):
 
 
 class CritiqueForm(forms.ModelForm):
+
+    CHOICES = (
+        ((0), (0)),
+        ((1), (1)),
+        ((2), (2)),
+        ((3), (3)),
+        ((4), (4)),
+        ((5), (5)),
+    )
+    rating = forms.ChoiceField(label='Note', widget=forms.RadioSelect, choices=CHOICES)
+
     class Meta:
         model = Critique
-        fields = ('title', 'title_tag', 'body', 'author', 'body', 'header_image', 'title_second',
+        fields = ('title', 'title_tag', 'body', 'author', 'body', 'header_image', 'title_second', 'rating',
                   'comment')
 
         widgets = {
             'title': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Put a title..'}),
             'title_tag': forms.TextInput(attrs={'class': 'form-control'}),
             'author': forms.TextInput(attrs={'class': 'form-control', 'value': '', 'id': 'elder', 'type': 'hidden'}),
-            # 'author': forms.Select(attrs={'class': 'form-control'}),
             'body': forms.Textarea(attrs={'class': 'form-control', 'placeholder': 'write here..'}),
             'title_second': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Put a title..'}),
             'comment': forms.Textarea(attrs={'class': 'form-control', 'placeholder': 'write here..'}),
