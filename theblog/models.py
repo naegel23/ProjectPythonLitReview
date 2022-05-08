@@ -1,5 +1,4 @@
 from django.db import models
-from django.conf import settings
 from django.contrib.auth.models import User
 from django.urls import reverse
 from django.core.validators import MinValueValidator, MaxValueValidator
@@ -27,7 +26,6 @@ class Profile(models.Model):
         ordering = ('-created',)
 
 
-
 RATE_CHOICES = [
     (1, 2, 3, 4, 5)
 ]
@@ -42,7 +40,7 @@ class Post(models.Model):
     post_date = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return self.title + '|' + str(self.author)
+        return self.title, '|' + str(self.author)
 
     def get_absolute_url(self):
         return reverse('home')
@@ -71,7 +69,7 @@ class Critique(models.Model):
     comment = models.TextField()
 
     def __str__(self):
-        return self.title + '|' + str(self.author)
+        return self.title, '|' + str(self.author)
 
     def get_absolute_url(self):
         return reverse('home')

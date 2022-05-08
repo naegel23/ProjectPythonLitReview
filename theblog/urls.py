@@ -1,10 +1,11 @@
 from django.urls import path
 from . import views
-from .views import HomeView, ArticleDetailView, AddPostView, UpdatePostView, DeletePostView, AddCommentView, search_user, AddCritiqueView, UpdateCritiqueView, DeleteCritiqueView, CritiqueDetailView, show_profile, FollowersListView, welcome, PostsView
+from .views import HomeView, ArticleDetailView, AddPostView, UpdatePostView, DeletePostView, AddCommentView,\
+    AddCritiqueView, UpdateCritiqueView, DeleteCritiqueView, CritiqueDetailView, show_profile, FollowersListView,\
+    welcome, PostsView
 
 
 urlpatterns = [
-    # path('', views.home, name="home"),
     path('', welcome, name="welcome"),
     path('home/', HomeView.as_view(), name="home"),
     path('posts/', PostsView.as_view(), name="posts"),
@@ -19,7 +20,6 @@ urlpatterns = [
     path('article/edit_critique/<int:pk>', UpdateCritiqueView.as_view(), name='update-critique'),
     path('article/<int:pk>/delete_critique', DeleteCritiqueView.as_view(), name='delete-critique'),
     path('profile/<profile_id>', show_profile, name='show-profile-page'),
-    # path('switch_follow/', follow_unfollow_profile, name='follow-unfollow-view'),
     path('following_list/', FollowersListView.as_view(), name="following-list"),
 
 ]

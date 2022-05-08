@@ -5,7 +5,7 @@
     <div class="row justify-content-around mb-5">
         <div class="col-4">
             <a href="{% url 'add-post' %}" class="btn btn-outline-primary btn-home">
-                Demander une critique
+                Créer un ticket
             </a>
         </div>
         <div class="col-4">
@@ -18,7 +18,7 @@
     <!-- Début de la card -->
 {% if user.is_authenticated %}
     <!-- Début des posts -->
-    {% for post in posts %}
+    {% for post in all_posts %}
     <div class="card text-dark bg-light mb-3" style="max-width: 90%; margin: auto;">
         <div class="card-header">
             <div class="container">
@@ -44,7 +44,7 @@
             <div class="row">
                 <div class="d-flex justify-content-end">
                     <a href="{% url 'article-detail' post.pk %}" style="margin-right: 20px;" class="btn btn-outline-dark">Voir la critique</a>
-                    {% if user.is_authenticated %}
+                {% if user.is_authenticated %}
                     {% if user.id == post.author.id %}
 
                     <a style="margin-right: 20px;" class="btn btn-outline-warning" href="{% url 'update-post' post.pk %} ">Editer</a>
@@ -56,59 +56,14 @@
             </div>
         </div>
         </div>
-      </div>
+    </div>
       <!-- Fin de la card -->
-        {% endfor %}
-        <!-- Fin des posts -->
-        <!-- MES POSTS -->
-        {% for post in my_posts %}
-                <!-- DEBUT DE LA CARD -->
-                <div class="card border-dark mb-3" style="max-width: 90%; margin: auto;">
-                    <div class="card-header">
-                        <div class="container">
-                            <div class="row">
-                                <div class="col">
-                                    <h4 style="text-transform: uppercase;">{{ post.title }}</h4>
-                                    <p>Vous avez publié une critique</p>
-                                </div>
-                                <div class="col">
-                                    <div class="d-flex justify-content-end">
-                                        <p>{{ post.post_date }}</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card-body">
-                      <h5 class="card-title">{{ post.body|slice:":200" }}</h5>
-                    {% if post.header_image %}
-                        <img src="{{ post.header_image.url }}" width="200" height="200">
-                    {% endif %}
-                    <div class="container">
-                        <div class="row">
-                            <div class="d-flex justify-content-end">
-                                <a href="{% url 'article-detail' post.pk %}" style="margin-right: 20px;" class="btn btn-outline-dark">Voir la critique</a>
-                                {% if user.is_authenticated %}
-                                {% if user.id == post.author.id %}
-
-                                <a style="margin-right: 20px;" class="btn btn-outline-warning" href="{% url 'update-post' post.pk %} ">Editer</a>
-                                <a class="btn btn-outline-danger" href="{% url 'delete-post' post.pk %}">Supprimer</a>
-                                {% endif %}
-                            {% endif %}
-                            </div>
-
-                        </div>
-                    </div>
-                    </div>
-                  </div>
-                  <!-- FIN DE LA CARD -->
-        {% endfor %}
-        <!-- Fin de mes posts -->
+    {% endfor %}
         <hr>
         <!-- LES CRITIQUES -->
     <h1> Critiques :</h1>
     <!-- DEBUT DE LA CARD -->
-    {% for critique in critiques %}
+    {% for critique in all_critiques %}
     <div class="card text-dark bg-light mb-3" style="max-width: 90%; margin: auto;">
         <div class="card-header">
             <div class="container">
@@ -149,11 +104,11 @@
             <div class="row">
                 <div class="d-flex justify-content-end">
                     <a href="{% url 'critique-detail' critique.pk %}" style="margin-right: 20px;" class="btn btn-outline-dark">Voir la critique</a>
-                    {% if user.is_authenticated %}
-                    {% if user.id == post.author.id %}
+                {% if user.is_authenticated %}
+                    {% if user.id == critique.author.id %}
 
-                    <a style="margin-right: 20px;" class="btn btn-outline-warning" href="{% url 'update-post' post.pk %} ">Editer</a>
-                    <a class="btn btn-outline-danger" href="{% url 'delete-post' post.pk %}">Supprimer</a>
+                    <a style="margin-right: 20px;" class="btn btn-outline-warning" href="{% url 'update-critique' critique.pk %} ">Editer</a>
+                    <a class="btn btn-outline-danger" href="{% url 'delete-critique' critique.pk %}">Supprimer</a>
                     {% endif %}
                 {% endif %}
                 </div> 
@@ -161,67 +116,12 @@
         </div>
         </div>
       </div>
+
       <!-- FIN DE LA CARD -->
         {% endfor %}
-        <!-- FIN DES CRITIQUES -->
-        <!-- MES CRITIQUES -->
-        {% for critique in my_critiques %}
-        <!-- Début de la boucle my critique -->
-        <div class="card border-secondary mb-3" style="max-width: 90%; margin: auto;">
-            <div class="card-header">
-                <div class="container">
-                    <div class="row">
-                        <div class="col">
-                            <h4 style="text-transform: uppercase;">{{ critique.title }}</h4>
-                            <p>Publié par : {{ critique.author.user.first_name }} {{ critique.author.user.last_name }}</p>
-                        </div>
-                        <div class="col">
-                            <div class="d-flex justify-content-end">
-                                <p>{{ critique.post_date }}</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="card-body">
-              <h5 class="card-title">{{ critique.body|slice:":200" }} -
-                          {% if critique.rating == 0 %}
-               '&#9734;&#9734;&#9734;&#9734;&#9734;'
-            {% elif critique.rating == 1 %}
-                '&#9733;&#9734;&#9734;&#9734;&#9734;'
-            {% elif critique.rating == 2 %}
-                '&#9733;&#9733;&#9734;&#9734;&#9734;'
-            {% elif critique.rating == 3 %}
-                '&#9733;&#9733;&#9733;&#9734;&#9734;'
-            {% elif critique.rating == 4 %}
-                '&#9733;&#9733;&#9733;&#9733;&#9734;'
-            {% elif critique.rating == 5 %}
-                '&#9733;&#9733;&#9733;&#9733;&#9733;'
-            {% endif %}
-              </h5>
-            {% if critique.header_image %}
-                <img src="{{ critique.header_image.url }}" width="300" height="300">
-            {% endif %}
-            <h5>{{ critique.title.second }}</h5>
-            <div class="container">
-                <div class="row">
-                    <div class="d-flex justify-content-end">
-                        <a href="{% url 'critique-detail' critique.pk %}" style="margin-right: 20px;" class="btn btn-outline-dark">Voir la critique</a>
-                        {% if user.is_authenticated %}
-                        {% if user.id == critique.author.id %}
-
-                        <a style="margin-right: 20px;" class="btn btn-outline-warning" href="{% url 'update-critique' critique.pk %} ">Editer</a>
-                        <a class="btn btn-outline-danger" href="{% url 'delete-critique' critique.pk %}">Supprimer</a>
-                        {% endif %}
-                    {% endif %}
-                    </div>
-                </div>
-            </div>
-          </div>
-        {% endfor %}
-        <!-- FIN DE MES CRITIQUES -->
+    </div>
 {% else %}
-<h2>You have to be connected to see the post .. <a href="{% url 'login' %}">click here to connect !</a></h2>
+<h2>Vous devez être connecté pour voir les posts .. <a href="{% url 'login' %}">cliqué ici pour vous connecter !</a></h2>
 {% endif %}
-</div>
+
 {% endblock %}

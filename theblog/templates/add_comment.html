@@ -3,20 +3,20 @@
 {% block content %}
 
 {% if user.is_authenticated %}
-<h1>Add Comment...</h1>
+<h1>Ajouter une Critique...</h1>
 <br><br>
 
 <div class="form-group">
     <form method="POST">
         {% csrf_token %}
         {{ form.as_p }}
-        <button class="btn btn-outline-secondary">Add Comment</button>
+        <button class="btn btn-outline-secondary">Ajouter une Critique</button>
     </form>
 </div>
 
 {% else %}
 
-You are not allowed here..!
+Accès non autorisé ..!
 
 {% endif %}
 <br><br>

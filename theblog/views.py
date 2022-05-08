@@ -4,6 +4,7 @@ from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from .forms import PostForm, EditForm, CommentForm, CritiqueForm, EditCritiqueForm
 from .models import Post, Comment, Critique, Profile
+from itertools import chain
 # Create your views here.
 
 
@@ -18,18 +19,22 @@ class HomeView(ListView):
     def get_context_data(self, **kwargs):
         context = super(HomeView, self).get_context_data(**kwargs)
         profile = Profile.objects.get(user=self.request.user)
-        context['my_posts'] = Post.objects.filter(author=profile).order_by('-post_date')
-        context['my_critiques'] = Critique.objects.filter(author=profile)
+        my_posts = Post.objects.filter(author=profile)
+        my_critiques = Critique.objects.filter(author=profile)
         context['critiques'] = []
-        context['posts'] = []
-        for follower in profile.following.all():
-            tmp = Post.objects.filter(author=follower.id).all().order_by('-post_date')
-            tmc = Critique.objects.filter(author=follower.id).all()
+        context['all_posts'] = list(chain(my_posts))
+        context['all_critiques'] = list(chain(my_critiques))
+        for following in profile.following.all():
+            tmp = Post.objects.filter(author=following.id).all()
+            tmc = Critique.objects.filter(author=following.id).all()
             for t in tmp:
-                context['posts'].append(t)
+                context['all_posts'].append(t)
             for c in tmc:
-                context['critiques'].append(c)
+                context['all_critiques'].append(c)
 
+        context['all_posts'] = sorted(context['all_posts'], key=lambda post: post.post_date, reverse=True)
+        context['all_critiques'] = sorted(context['all_critiques'],
+                                          key=lambda critique: critique.post_date, reverse=True)
         return context
 
 

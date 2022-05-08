@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% block title %}Delete post{% endblock %}
+{% block title %}Supprimer un Ticket{% endblock %}
 {% block content %}
 
 {% if user.is_authenticated %}
@@ -13,17 +13,17 @@
     <form method="POST">
         {% csrf_token %}
         <br><br>
-        <strong> Are you sure you want to delete ?</strong>
+        <strong> Êtes-vous sûre de vouloir supprimer ?</strong>
         <br><br>
-        <button class="btn btn-outline-secondary">Delete</button>
+        <button class="btn btn-outline-secondary">Supprimer</button>
     </form>
 </div>
     {% else %}
-        You are not allowed here..!
+        Accès non autorisé..!
     {% endif %}
 {% else %}
 
-You are not allowed here..!
+Accès non autorisé..!
 
 {% endif %}
 <br><br>

@@ -3,7 +3,7 @@
 {% block content %}
 {% if user.is_authenticated %}
     <h1> Vos Posts : </h1>
-    {% for post in all_posts %}
+    {% for post in my_posts %}
             <!-- DEBUT DE LA CARD -->
             <div class="card border-dark mb-3" style="max-width: 90%; margin: auto;">
                 <div class="card-header">
@@ -11,7 +11,7 @@
                         <div class="row">
                             <div class="col">
                                 <h4 style="text-transform: uppercase;">{{ post.title }}</h4>
-                                <p>Vous avez publié une critique</p>
+                                <p>Vous avez publié une demande de critique</p>
                             </div>
                             <div class="col">
                                 <div class="d-flex justify-content-end">
@@ -55,6 +55,7 @@
                     <div class="row">
                         <div class="col">
                             <h4 style="text-transform: uppercase;">{{ critique.title }}</h4>
+                            <p>Vous avez publié une critique</p>
                             <p>Publié par : {{ critique.author.user.first_name }} {{ critique.author.user.last_name }}</p>
                         </div>
                         <div class="col">

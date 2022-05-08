@@ -5,26 +5,6 @@ profile detail
 {% endblock title %}
 
 {% block content %}
-<!--modal-->
-<div class="ui basic modal">
-  <div class="ui icon header">
-    <i class="user plus icon"></i>
-    Are you sure want to follow{{object}} ?
-  </div>
-  <div class="content">
-    <p>By clicking yes you will see all the posts published by {{object}}</p>
-  </div>
-  <div class="actions">
-      <form action="{% url 'profiles:follow-unfollow-view' %}" method="POST">
-        {% csrf_token %}
-        <input type="hidden" name="profile_pk" value={{object.pk}}>
-        <button type="submit" class="ui green ok massive button">
-        <i class="checkmark icon"></i>
-        Yes
-        </button>
-      </form>
-  </div>
-</div>
 
 <div class="ui grid">
     <div class="four wide column">
@@ -49,15 +29,3 @@ profile detail
     </div>
 </div>
 {% endblock content %}
-
-{% block scripts %}
-<script>
-$(document).ready(function(){
-    $("#follow-btn").click(function(){
-        $('.ui.basic.modal')
-        .modal('show')
-    })
-;
-})
-</script>
-{% endblock scripts %}

@@ -5,13 +5,12 @@ from .models import Post, Comment, Critique
 class PostForm(forms.ModelForm):
     class Meta:
         model = Post
-        fields = ('title', 'title_tag', 'body', 'author','body', 'header_image')
+        fields = ('title', 'title_tag', 'body', 'author', 'body', 'header_image')
 
         widgets = {
             'title': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Put a title..'}),
             'title_tag': forms.TextInput(attrs={'class': 'form-control'}),
             'author': forms.TextInput(attrs={'class': 'form-control', 'value': '', 'id': 'elder', 'type': 'hidden'}),
-            # 'author': forms.Select(attrs={'class': 'form-control'}),
             'body': forms.Textarea(attrs={'class': 'form-control', 'placeholder': 'write here..'}),
 
         }
@@ -81,7 +80,7 @@ class CritiqueForm(forms.ModelForm):
 class EditCritiqueForm(forms.ModelForm):
     class Meta:
         model = Critique
-        fields = ('title', 'title_tag', 'body', 'title_second','comment')
+        fields = ('title', 'title_tag', 'body', 'title_second', 'comment')
 
         widgets = {
             'title': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Put a title..'}),
@@ -90,4 +89,3 @@ class EditCritiqueForm(forms.ModelForm):
             'title_second': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Put a title..'}),
             'comment': forms.Textarea(attrs={'class': 'form-control', 'placeholder': 'write here..'}),
         }
-

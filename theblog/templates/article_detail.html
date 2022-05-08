@@ -7,14 +7,14 @@
 {% block content %}
 <h1>{{ post.title }}</h1>
 
-<small>By:  {{ post.author.first_name }}
-            {{post.author.last_name }} -
+<small>By:  {{ post.author.user.first_name }}
+            {{post.author.user.last_name }} -
             {{ post.post_date }}
     {% if user.is_authenticated %}
         {% if user.id == post.author.id %}
-            <a href="{% url 'update-post' post.pk %}">(Edit)</a>
+            <a href="{% url 'update-post' post.pk %}">(Modifier)</a>
 
-            <a href="{% url 'delete-post' post.pk %}">(Delete)</a>
+            <a href="{% url 'delete-post' post.pk %}">(Supprimer)</a>
         {% endif %}
     {% endif %}
 </small><br>
@@ -80,12 +80,12 @@
 
         </h5>
         <p class="small text-muted">
-            <a href="{% url 'show-profile-page' user.id %}">Profile page</a>
+            <a href="{% url 'show-profile-page' user.id %}">Page Profile </a>
         </p>
         <p class="card-text">
             {{ post.author.profile.bio }}
         </p>
-        <p class="card-text"><small class="text-muted"> last profile update : {{ post.author.profile.updated }}</small></p>
+        <p class="card-text"><small class="text-muted"> dernière profile modification : {{ post.author.profile.updated }}</small></p>
       </div>
     </div>
   </div>

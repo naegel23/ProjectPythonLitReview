@@ -2,12 +2,12 @@
 
 {% block content %}
 <center>
-        <h1>Welcome in LitReview</h1>
+        <h1>Bienvue sur le site LitReview</h1>
     <br> <br>
     {% if user.is_authenticated %}
-        <p>you are already connected <a href="{% url 'home' %}">click here</a></p>
+        <p>Vous êtes connecté <a href="{% url 'home' %}">cliqué ici</a></p>
     {% else %}
-        <p>you want to loggin ? <a href="{% url 'login' %}">loggin here</a></p>
+        <p>Vous souhaitez vous connecter ? <a href="{% url 'login' %}">cliqué ici</a></p>
         
     {% endif %}
 

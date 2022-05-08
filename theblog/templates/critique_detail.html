@@ -11,16 +11,16 @@
             {{ critique.post_date }}
     {% if user.is_authenticated %}
         {% if user.id == critique.author.id %}
-            <a href="{% url 'update-critique' critique.pk %}">(Edit)</a>
+            <a href="{% url 'update-critique' critique.pk %}">(Modifier)</a>
 
-            <a href="{% url 'delete-critique' critique.pk %}">(Delete)</a>
+            <a href="{% url 'delete-critique' critique.pk %}">(Supprimer)</a>
         {% endif %}
     {% endif %}
 </small><br>
 <hr>
 <br>
 {% if critique.header_image %}
-    <img src="{{ critique.header_image.url }}">
+    <img src="{{ critique.header_image.url }}" width="500" height="500">
 {% endif %}
 
 <br><br>
