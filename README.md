@@ -18,13 +18,11 @@ pip3 install -r requirements.txt
 python3 -m pip install -r requirements.txt
 
 Une fois l'environnement virtuel activé et les dépendances du projet Projet_P9 installées, en étant positionné dans le dossier pythonProjectLitReview,
-se déplacer dans le répertoire du projet Django lit_review en tapant la commande :
+si besoin se déplacer dans le répertoire du projet Django lit_review contenant le fichier manage.py en tapant la commande : 
 
-cd ablog
+cd nom_du_fichier 
 
-Dans ce dossier, on trouve le fameux fichier manage.py qui permet d'administrer le site.
-
-Lancer le serveur Django en tapant la commande :
+Puis lancer le serveur Django en tapant la commande :
 
 python manage.py runserver 
 
