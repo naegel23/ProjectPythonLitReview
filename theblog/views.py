@@ -21,7 +21,6 @@ class HomeView(ListView):
         profile = Profile.objects.get(user=self.request.user)
         my_posts = Post.objects.filter(author=profile)
         my_critiques = Critique.objects.filter(author=profile)
-        context['critiques'] = []
         context['all_posts'] = list(chain(my_posts))
         context['all_critiques'] = list(chain(my_critiques))
         for following in profile.following.all():
