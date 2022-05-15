@@ -10,12 +10,13 @@ Ouvrir un terminal et se déplacer dans la racine du projet dossier.
 Installer pip pour python3 si ce n'est pas déjà fait.
 Créer un environnement virtuel et l'activer.
 
-Installer les dépendances du projet
-Toujours à la racine du projet, lancer l'une des 2 commandes suivantes :
+Installer les dépendances du projet si besoin 
+Toujours à la racine du projet, lancer les commandes suivantes :
 
-pip3 install -r requirements.txt
+pip install django 
+pip install Pillow
+pip install flake8 
 
-python3 -m pip install -r requirements.txt
 
 Une fois l'environnement virtuel activé et les dépendances du projet Projet_P9 installées, en étant positionné dans le dossier pythonProjectLitReview,
 si besoin se déplacer dans le répertoire du projet Django lit_review contenant le fichier manage.py en tapant la commande : 
