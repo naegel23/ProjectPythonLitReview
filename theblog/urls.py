@@ -21,5 +21,4 @@ urlpatterns = [
     path('article/<int:pk>/delete_critique', DeleteCritiqueView.as_view(), name='delete-critique'),
     path('profile/<profile_id>', show_profile, name='show-profile-page'),
     path('following_list/', FollowersListView.as_view(), name="following-list"),
-
 ]
