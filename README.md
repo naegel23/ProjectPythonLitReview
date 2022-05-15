@@ -15,6 +15,7 @@ Toujours à la racine du projet, lancer les commandes suivantes :
 
 pip install django 
 pip install Pillow
+pip install flake8 
 
 
 Une fois l'environnement virtuel activé et les dépendances du projet Projet_P9 installées, en étant positionné dans le dossier pythonProjectLitReview,
